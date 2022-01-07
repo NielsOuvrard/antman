@@ -5,10 +5,8 @@
 ** operations on files
 */
 
-
 #include "my.h"
 #include "am_header.h"
-#include "both_header.h"
 
 char *file_to_str (char *file_name)
 {
@@ -30,24 +28,24 @@ char *file_to_str (char *file_name)
     return buffer;
 }
 
-char **str_to_array (char *str)
-{
-    int k = 0, size, i_map = 0;
-    for (int i = 0; str[i] != '\0'; i++)
-        if (str[i] == ' ')
-            k++;
-    char **map = malloc(sizeof(char *) * (k + 2));
-    for (int i = 0; str[i] != '\0'; i++) {
-        for (size = 0; str[i + size] != '\0' && str[i + size] != ' '; size++);
-        map[i_map] = malloc(sizeof(char) * (size + 1));
-        my_memset(map[i_map], size + 1, '\0');
-        for (int j = 0; j < size; j++)
-            map[i_map][j] = str[i + j];
-        i_map++;
-        if (str[i + size] == '\0')
-            i--;
-        i += size;
-    }
-    map[i_map] = NULL;
-    return map;
-}
+// char **str_to_array (char *str)
+// {
+//     int k = 0, size, i_map = 0;
+//     for (int i = 0; str[i] != '\0'; i++)
+//         if (str[i] == ' ')
+//             k++;
+//     char **map = malloc(sizeof(char *) * (k + 2));
+//     for (int i = 0; str[i] != '\0'; i++) {
+//         for (size = 0; str[i + size] != '\0' && str[i + size] != ' '; size++);
+//         map[i_map] = malloc(sizeof(char) * (size + 1));
+//         my_memset(map[i_map], size + 1, '\0');
+//         for (int j = 0; j < size; j++)
+//             map[i_map][j] = str[i + j];
+//         i_map++;
+//         if (str[i + size] == '\0')
+//             i--;
+//         i += size;
+//     }
+//     map[i_map] = NULL;
+//     return map;
+// }
