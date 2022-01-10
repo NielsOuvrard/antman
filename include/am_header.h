@@ -49,13 +49,23 @@ int type_3 (char *file);
 // chained list
 
 static Cell *createcell(int nbr, int total);
+
 List *emptylist(void);
+
 int isemptylist(List *L);
+
 void printlist(List *L);
+
 List *freelist(List *L);
+
 int getat(List *L, int pos);
+
 int lenlist(List *L);
+
 void setat(List *L, int pos, int nbr, int total);
+
 List *freeat(List *L, int pos);
+
 List *addat(List *L, int nbr, int total, int pos);
+
 List *addend(int nbr, int total, List *enda);
