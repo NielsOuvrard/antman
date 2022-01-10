@@ -61,11 +61,12 @@ void size(char *file, List **list) {
     int a = 0, i = find_start(file), res = 0, temp1, temp2, tot = 1, nb = nbn(file, find_start(file));
 
     for(int w = 0; w < i; w++) {
-        if(file[w] == '\n')
+        if(file[w] == '\n' /*&& w != i - 1*/)
             my_putchar('@');
-        else
+        else if (file[w] != '\n')
             my_putchar(file[w]);
     }
+
     for(int w = 0; w < nb; w++) {
         temp1 = get_nbr(file, i);
         while (file[i] != '\n' && file[i] != '\0')
@@ -75,13 +76,13 @@ void size(char *file, List **list) {
         if(temp1 == temp2)
             tot++;
         if(temp1 != temp2) {
-            *list = addat(*list, temp1, tot, 0);
+            *list = addat(*list, temp1, tot, a);
             tot = 1;
             a++;
         }
     }
     temp1 = get_nbr(file, i);
-    *list = addat(*list, temp1, tot, 0);
+    *list = addat(*list, temp1, tot, a);
 }
 
 int type_3 (char *file)
