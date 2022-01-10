@@ -100,30 +100,56 @@ char *array_int_to_str (char **map, int *array_int, char *file)
     return compressed;
 }
 
+
+int some_str_are_same (char **map, int i, int same, int dec)
+{
+    for (int k = 0; same > k; k++) {
+        if (map[i + k + same + dec] == NULL)
+            return 0;
+        // my_printf("ckeck %s", map[i]);
+        // my_printf("\tavec %s", map[i + same + k + dec]);
+        // my_printf("\t k : %d", k);
+        // my_printf(" same : %d\n", same);
+        if (my_strcmp(map[i + k], map[i + k + same + dec]))
+            return 0;
+    }
+
+    // my_printf("SAME SAME SAME\n");
+    // for (int k = 0; same > k; k++) {
+    //     my_printf("%s\t", map[i + k]);
+    //     my_printf("%s\n", map[i + k + same + dec]);
+    // }
+    return 1;
+}
+
+int some_same (char **map, int same, int i)
+{
+    // i = decalage du premier str ckeck
+    // same = nombre de mots que l'on compare avec le reste
+    // dec = check str par str pour le same
+    int nmb_occurences = 0;
+    for (int dec = 0; map[i + dec + same] != NULL; dec++) {
+        nmb_occurences += some_str_are_same(map, i, same, dec);
+    }
+    int size = 0;
+    for (int f = 0; f < same; f++)
+        size += my_strlen(map[i + f]);
+    if (nmb_occurences) {
+        // my_printf("size : %d\n", size);
+        // my_printf("occurences : %d\n\n", nmb_occurences);
+        my_putint(nmb_occurences * size);
+        my_putchar('\n');
+        // size * nmb_occurences;
+    }
+    return 0;
+}
+
 int check_some_same (char **map)
 {
-    for (int i = 0; map[i] != NULL; i++) {
-        for (int same = 2; map[i + same - 1] != NULL && map[i + same] != NULL; same++) {
-            my_printf("\t\t SAME = %d\n", same);
-            int tmp = 0;
-            for (int k = 0; same > k; k++) {
-                // my_putint(same);
-                my_putint(i + same + k);
-                my_printf("ckeck %s\tavec %s", map[i + k], map[i + same + k]);
-                my_printf("\tk : %d, same : %d\n", k, same);
-                my_printf("same : %d\n", same);
-                if (!my_strcmp(map[i + k], map[i + k + same]))
-                    tmp++;
-            }
-            // my_putint(tmp);
-            my_printf("tmp = %d", tmp);
-            my_printf("\tsame = %d\n", same);
-            if (tmp == same) {
-                my_printf("Ces str sont identiques :\n");
-                for (int k = 0; same > k; k++)
-                    my_printf("%s with \t %s\n", map[i + k], map[i + k + same]);
-                    // my_printf("are the same on %d, %s, %s, pendant %d\n", i, map[i], map[i + same], same);
-            }
+    for (int i = 0; map[i] != NULL; i++) { // map[i] != NULL
+        // for (int same = 2; same < 3; same++) { // map[i + same - 1] != NULL && map[i + same] != NULL
+        for (int same = 2; map[i + same - 1] != NULL && map[i + same] != NULL; same++) { //
+            some_same(map, same, i);
         }
     }
     return 0;
@@ -134,7 +160,8 @@ int type_1 (char *file)
     char **map = str_to_array(file);
     // dump_array_str(map);
     int *arr_int = check_the_same(map);
-    dump_array_str(map);
+
+    // dump_array_str(map);
     check_some_same(map);
 
     // dump_arr_int(arr_int);
@@ -151,4 +178,3 @@ int type_1 (char *file)
     free(map);
     return 0;
 }
-
