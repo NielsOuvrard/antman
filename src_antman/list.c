@@ -34,11 +34,17 @@ int isemptylist(List *L)
 void printlist(List *L)
 {
     while(!isemptylist(L)) {
-            my_putunsint(L->nbr);
-            my_putstr(" ");
-            my_putunsint(L->total);
-        if(!isemptylist(L->next))
+        if(L->total != 1){
             my_putstr("@");
+             my_putstr("@");
+            my_putunsint(L->nbr);
+            my_putstr("@");
+            my_putunsint(L->total);
+        }
+        else{
+            my_putstr("@");
+            my_putunsint(L->nbr);   
+        }
         L = L->next;
     }
 }

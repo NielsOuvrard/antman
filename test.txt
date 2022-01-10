@@ -1,3 +1,7 @@
+P3
+# Created by GIMP version 2.10.20 PNM plug-in
+305 400
+#This is actually propaganda for the superior vampire book, interview with a vampire.
 255
 255
 255
@@ -46,4 +50,5 @@
 12
 14
 155
-15555
+155
+1
