@@ -100,22 +100,55 @@ char *array_int_to_str (char **map, int *array_int, char *file)
     return compressed;
 }
 
+int check_some_same (char **map)
+{
+    for (int i = 0; map[i] != NULL; i++) {
+        for (int same = 2; map[i + same - 1] != NULL && map[i + same] != NULL; same++) {
+            my_printf("\t\t SAME = %d\n", same);
+            int tmp = 0;
+            for (int k = 0; same > k; k++) {
+                // my_putint(same);
+                my_putint(i + same + k);
+                my_printf("ckeck %s\tavec %s", map[i + k], map[i + same + k]);
+                my_printf("\tk : %d, same : %d\n", k, same);
+                my_printf("same : %d\n", same);
+                if (!my_strcmp(map[i + k], map[i + k + same]))
+                    tmp++;
+            }
+            // my_putint(tmp);
+            my_printf("tmp = %d", tmp);
+            my_printf("\tsame = %d\n", same);
+            if (tmp == same) {
+                my_printf("Ces str sont identiques :\n");
+                for (int k = 0; same > k; k++)
+                    my_printf("%s with \t %s\n", map[i + k], map[i + k + same]);
+                    // my_printf("are the same on %d, %s, %s, pendant %d\n", i, map[i], map[i + same], same);
+            }
+        }
+    }
+    return 0;
+}
+
 int type_1 (char *file)
 {
     char **map = str_to_array(file);
     // dump_array_str(map);
     int *arr_int = check_the_same(map);
+    dump_array_str(map);
+    check_some_same(map);
+
     // dump_arr_int(arr_int);
     // dump_arr_int_str(map, arr_int);
-    char *compressed = array_int_to_str(map, arr_int, file);
+    // char *compressed = array_int_to_str(map, arr_int, file);
 
-    my_putstr(compressed);      // write into file
-    my_putchar('\n');
+    // my_putstr(compressed);      // write into file
+    // my_putchar('\n');
 
-    free(compressed);
+    // free(compressed);
     free(arr_int);
     for (int i = 0; map[i] != NULL; i++)
         free(map[i]);
     free(map);
     return 0;
 }
+
