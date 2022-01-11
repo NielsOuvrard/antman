@@ -15,14 +15,30 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 
-typedef struct cell_t
-{
+typedef struct cell_t {
     int nbr;
     int total;
     struct cell_t *next;
     struct cell_t *prev;
 
 }List, Cell;
+
+typedef struct ls_type_1 {
+    char *str;
+    struct ls_type_1 *next;
+} ls_type_1;
+
+// typedef struct linked_list_ps {
+//     int nbr;
+//     struct linked_list_ps *next;
+// } linked_list_ps;
+
+typedef struct type_1_opt {
+    int opti;
+    int same;
+    int i;
+
+} type_1_opt;
 
 // op on files
 
@@ -45,6 +61,22 @@ int type_1 (char *file);
 int type_2 (char *file);
 
 int type_3 (char *file);
+
+// list type 1
+
+int free_linked_list_am (ls_type_1 *list);
+
+int my_put_in_list (ls_type_1 **list, char *str);
+
+int disp_linked_list_am (ls_type_1 *list);
+
+int my_list_size (ls_type_1 const *begin);
+
+ls_type_1 *tail_linked_list (ls_type_1 *l_1);
+
+void add_at_end (ls_type_1 **list, char *str);
+
+void reverst_linked_list (ls_type_1 **off);
 
 // chained list
 

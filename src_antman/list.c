@@ -8,7 +8,6 @@
 #include "my.h"
 #include "am_header.h"
 
-
 static Cell *createcell(int nbr, int total)
 {
     Cell *cell = malloc(sizeof(Cell));
@@ -43,7 +42,7 @@ void printlist(List *L)
         }
         else{
             my_putstr("@");
-            my_putunsint(L->nbr);   
+            my_putunsint(L->nbr);
         }
         L = L->next;
     }
@@ -57,7 +56,7 @@ List *freelist(List *L)
         free(L);
         L = tmp;
     }
-    return L;    
+    return L;
 }
 
 int getat(List *L, int pos)
@@ -79,7 +78,7 @@ int lenlist(List *L)
     long len = 0;
     while (L) {
         L = L->next;
-        len++; 
+        len++;
     }
     return len;
 }
@@ -112,11 +111,11 @@ List *freeat(List *L, int pos)
     while(i < pos ) {
         i++;
         prec = cur;
-        cur = cur->next;   
+        cur = cur->next;
     }
     prec->next = cur->next;
     free(cur);
-    return L;    
+    return L;
 }
 
 List *addat(List *L, int nbr, int total, int pos)
