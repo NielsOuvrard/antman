@@ -62,29 +62,6 @@ int *delet_the_value (int *array, int value)
     return array;
 }
 
-// int *check_the_same (char **map)
-// {
-//     int len_arr = my_arraylen(map);
-//     int *arr_elems = malloc(sizeof(int) * (len_arr + 1));
-//     arr_elems[0] = len_arr + 1;
-//     for (int i = 0; i < len_arr; i++)
-//         arr_elems[i + 1] = i;
-//     for (int i = 1; arr_elems[0] > i; i++) {
-//         char *tmp = map[arr_elems[i]];
-//         int elems = 0;
-//         for (int j = i + 1; arr_elems[0] > j; j++) {
-//             // my_printf("%s -> %d,\t %s -> %d\tsize %d\n", tmp, arr_elems[i], map[arr_elems[j]], arr_elems[j], arr_elems[0]);
-//             if (!my_strcmp(tmp, map[arr_elems[j]])) {
-//                 delet_the_value(arr_elems, arr_elems[j]);
-//                 elems++;
-//                 j--;
-//             }                /// C1
-//         }
-//     }
-//     return arr_elems;
-// }
-
-
 int *check_the_same (ls_type_1 *list)
 {
     int len_arr = my_list_size(list);
@@ -107,35 +84,6 @@ int *check_the_same (ls_type_1 *list)
     return arr_elems;
 }
 
-
-// char *array_int_to_str (char **map, int *array_int, char *file)
-// {
-//     int size = my_strlen(file) + 1;
-//     char *compressed = malloc(sizeof(char) * size * 5);
-//     my_memset(compressed, size, '\0');
-//     for (int i = 1; i < array_int[0]; i++) {
-//         my_strcat(compressed, map[array_int[i]]);
-//         my_strcat(compressed, "@");
-//     }
-//     // my_printf("str : %s\n", compressed);
-//     for (int i = 0; map[i] != NULL; i++) {
-//         for (int j = 1; j < array_int[0]; j++) {
-//             if (!my_strcmp(map[array_int[j]], map[i])) {                /// C1
-//                 char *str_j = my_int_to_str(j);
-//                 my_strcat(compressed, str_j);
-//                 free(str_j);
-//                 char *virgule = malloc(sizeof(char) * 2);
-//                 my_strcpy(virgule, ",");
-//                 my_strcat(compressed, virgule);
-//                 free(virgule);
-//             }
-//         }
-//     }
-//     return compressed;
-// }
-
-
-
 void array_int_to_str (ls_type_1 *list, int *array_int, char *file)
 {
     for (int i = 1; i < array_int[0]; i++) {
@@ -147,7 +95,7 @@ void array_int_to_str (ls_type_1 *list, int *array_int, char *file)
         for (int j = 1; j < array_int[0]; j++) {
             if (!my_strcmp(how_far_list(list, array_int[j]), explore->str)) {                /// C1
                 my_putint(j);
-                my_putchar(',');
+                my_putchar('|');
             }
         }
         explore = explore->next;
@@ -155,7 +103,7 @@ void array_int_to_str (ls_type_1 *list, int *array_int, char *file)
     return;
 }
 
-
+//////////////////////// OPTI MIN ////////////////////
 
 
 
@@ -231,6 +179,7 @@ type_1_opt some_same (ls_type_1 *list, int same, int i)
     valeures.i = i;
     valeures.same = same;
     valeures.opti = 0;
+    return valeures;
     int size = 0, map_i = 0, map_i_size = my_strlen(list->str);
     // i = decalage du premier str ckeck
     // same = nombre de mots que l'on compare avec le reste
@@ -263,17 +212,19 @@ type_1_opt some_same (ls_type_1 *list, int same, int i)
     return valeures;
 }
 
-int check_some_same (ls_type_1 **off)
+int check_some_same (ls_type_1 *off)
 {
-    ls_type_1 *list;
+    ls_type_1 *list = off;
+    ls_type_1 *explore = off;
     type_1_opt val;
     val.opti = 0;
-    for (int i = 0; list != NULL; i++) {
+    for (int i = 0; explore != NULL; i++) {
         for (int same = 2; how_far_list(list, same - 1) != NULL && how_far_list(list, same) != NULL; same++) {
             type_1_opt tmp = some_same(list, same, i);
+            my_printf("tmp : %s\n", tmp);
             val.opti = tmp.opti > val.opti ? tmp.opti : val.opti;
         }
-        list = list->next;
+        explore = explore->next;
     }
     my_printf("max opti : %d\n", val.opti);
     // for (int i = val.i; map[i] != NULL; i++) {
@@ -288,43 +239,20 @@ int check_some_same (ls_type_1 **off)
     return 0;
 }
 
-// int eazy_comp_2 (ls_type_1 *list)
-// {
-//     ls_type_1 *tmp = list->next;
-//     while (tmp != NULL) {
-//         if (!my_strcmp(list->str, tmp->str)) {
-
-//         }
-//         tmp = tmp->next;
-//     }
-//     return 0;
-// }
-
-// int eazy_comp (ls_type_1 **off)
-// {
-//     ls_type_1 *list = off;
-//     while (list != NULL) {
-//         eazy_comp_2(list);
-//         list = list->next;
-//     }
-//     return 0;
-// }
-
 int type_1 (char *file)
 {
     ls_type_1 *list = str_to_file(file);
+    // int *arr = check_the_same(list);
+    // array_int_to_str(list, arr, file);
+    // free(arr);
+
+    check_some_same(list);
 
     // disp_linked_list_am(list);
-
-    // eazy_comp(&list);
-
-    int *arr = check_the_same(list);
     // dump_arr_int(arr);
-    array_int_to_str(list, arr, file);
     // dump_arr_int_str(map, arr_int);
-    my_putchar('\n');
 
-    free(arr);
+    my_putchar('\n');
     free_linked_list_am(list);
     return 0;
 }
