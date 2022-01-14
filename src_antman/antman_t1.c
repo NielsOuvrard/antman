@@ -19,6 +19,18 @@ char *how_far_list (ls_type_1 *list, int far)
     return list->str;
 }
 
+void dump_arr_int_str (ls_type_1 *list, int *arr_int)
+{
+    for (int i = 1; i < arr_int[0]; i++) {
+        my_putint(arr_int[i]);
+        my_putstr("\t: ");
+        my_putstr(how_far_list(list, arr_int[i]));
+        my_putstr("\n");
+    }
+    my_putchar('\n');
+    return;
+}
+
 ls_type_1 *str_to_file (char *str)
 {
     int k = 0, size, i_map = 0;
@@ -39,7 +51,7 @@ ls_type_1 *str_to_file (char *str)
         if (str[i + size] == '\0')
             i++;
         if (str[i + size] == '\n') {
-            char *tmp2 = malloc(sizeof(char) * (2));
+            char *tmp2 = malloc(sizeof(char) * 2);
             my_memset(tmp2, 2, '\0');
             tmp2[0] = '\n';
             my_put_in_list(&list, tmp2);
@@ -62,26 +74,41 @@ int *delet_the_value (int *array, int value)
     return array;
 }
 
-int *check_the_same (ls_type_1 *list)
+int exist_in_list (ls_type_1 *list, char *s)
 {
-    int len_arr = my_list_size(list);
-    int *arr_elems = malloc(sizeof(int) * (len_arr + 1));
-    arr_elems[0] = len_arr + 1;
-    for (int i = 0; i < len_arr; i++)
-        arr_elems[i + 1] = i;
+    int i = 0;
+    while (list) {
+        if (my_strlen(s) == my_strlen(list->str) && !my_strcmp(s, list->str))
+            return i;
+        i++;
+        list = list->next;
+    }
+    return 0;
+}
+
+void check_the_same (ls_type_1 *list)
+{
     ls_type_1 *explore = list;
-    for (int i = 1; arr_elems[0] > i; i++) {
-        int elems = 0;
-        for (int j = i + 1; arr_elems[0] > j; j++) {
-            if (!my_strcmp(explore->str, how_far_list(list, arr_elems[j]))) {
-                delet_the_value(arr_elems, arr_elems[j]);
-                elems++;
-                j--;
-            }
+    ls_type_1 *alone = NULL;
+    while (explore) {
+        if (!exist_in_list(alone, explore->str)) {
+            my_put_in_list(&alone, explore->str);
         }
         explore = explore->next;
     }
-    return arr_elems;
+    reverst_linked_list(&alone);
+    ls_type_1 *dico = alone;
+    while (dico) {
+        my_putstr(dico->str);
+        my_putstr("@");
+        dico = dico->next;
+    }
+    while (list) {
+        my_putchar('|');
+        my_putint(exist_in_list(alone, list->str));
+        list = list->next;
+    }
+    return;
 }
 
 void array_int_to_str (ls_type_1 *list, int *array_int, char *file)
@@ -93,9 +120,10 @@ void array_int_to_str (ls_type_1 *list, int *array_int, char *file)
     ls_type_1 *explore = list;
     for (int i = 0; explore != NULL; i++) {
         for (int j = 1; j < array_int[0]; j++) {
-            if (!my_strcmp(how_far_list(list, array_int[j]), explore->str)) {                /// C1
-                my_putint(j);
+            if (!my_strcmp(explore->str, how_far_list(list, array_int[j]))) {                /// C1
                 my_putchar('|');
+                my_putint(j);
+                // my_printf("on check %s\n", explore->str);
             }
         }
         explore = explore->next;
@@ -104,61 +132,6 @@ void array_int_to_str (ls_type_1 *list, int *array_int, char *file)
 }
 
 //////////////////////// OPTI MIN ////////////////////
-
-
-
-
-// int check_some_same (char **map)
-// {
-//     type_1_opt val;
-//     val.opti = 0;
-//     for (int i = 0; map[i] != NULL; i++) { // map[i] != NULL
-//         for (int same = 2; map[i + same - 1] != NULL && map[i + same] != NULL; same++) { //
-//             type_1_opt tmp = some_same(map, same, i);
-//             val.opti = tmp.opti > val.opti ? tmp.opti : val.opti;
-//         }
-//     }
-//     my_printf("max opti : %d\n", val.opti);
-//     for (int i = val.i; map[i] != NULL; i++) {
-//         int tmp = 0;
-//         for (int same = 0; same < val.same && map[i + same] != NULL; same++)
-//             if (!my_strcmp(map[i], map[i + same]))
-//                 tmp++;
-//         if (tmp == val.same) {
-//             /// my_strcat(map[i], map[i + 1]);
-//         }
-//     }
-//     return 0;
-// }
-
-// type_1_opt some_same (char **map, int same, int i)
-// {
-//     type_1_opt valeures;
-//     valeures.i = i;
-//     valeures.same = same;
-//     valeures.opti = 0;
-//     int size = 0, map_i = 0, map_i_size = my_strlen(map[i]);
-//     // i = decalage du premier str ckeck
-//     // same = nombre de mots que l'on compare avec le reste
-//     // dec = check str par str pour le same
-//     int nmb_occurences = 0;
-//     for (int dec = 0; map[i + dec + same] != NULL; dec++)
-//         nmb_occurences += some_str_are_same(map, i, same, dec);
-//     for (int f = 1; f < same; f++)
-//         size += my_strlen(map[i + f]);
-//     size += map_i_size;
-//     for (int f = 1; map[i + f] != NULL; f++)
-//         if (!my_strcmp(map[i], map[i + f]))
-//             map_i++;
-//     if (nmb_occurences) {
-//         if (map_i * map_i_size > nmb_occurences * size)
-//             valeures.opti = map_i * map_i_size;
-//         else
-//             valeures.opti = nmb_occurences * size;
-//     }
-//     return valeures;
-// }
-
 
 int some_str_are_same (ls_type_1 *list, int same, int dec)
 {
@@ -179,7 +152,6 @@ type_1_opt some_same (ls_type_1 *list, int same, int i)
     valeures.i = i;
     valeures.same = same;
     valeures.opti = 0;
-    return valeures;
     int size = 0, map_i = 0, map_i_size = my_strlen(list->str);
     // i = decalage du premier str ckeck
     // same = nombre de mots que l'on compare avec le reste
@@ -187,7 +159,7 @@ type_1_opt some_same (ls_type_1 *list, int same, int i)
     int nmb_occurences = 0;
     for (int dec = 0; how_far_list(list, dec + same) != NULL; dec++)
         nmb_occurences += some_str_are_same(list, same, dec);
-    while (size_strlist != NULL) {
+    for (int  k = 0; size_strlist != NULL && k < same; k++) {
         size += my_strlen(size_strlist->str);
         size_strlist = size_strlist->next;
     }
@@ -196,62 +168,100 @@ type_1_opt some_same (ls_type_1 *list, int same, int i)
             map_i++;
         next_list = next_list->next;
     }
+    // my_printf("Ok jusqu'ici \n");
     if (nmb_occurences) {
-        if (map_i * map_i_size > nmb_occurences * size)
+        if (map_i * map_i_size > nmb_occurences * size) {
             valeures.opti = map_i * map_i_size;
-        else
+            valeures.same = 1;
+        } else {
             valeures.opti = nmb_occurences * size;
-        my_printf("size : %d\n", size);
-        my_printf("occurences : %d\n", nmb_occurences);
-        my_putint(nmb_occurences * size);
-        my_putchar('\n');
-        my_putint(map_i * map_i_size);
-        my_putchar('\n');
-        my_putchar('\n');
+        }
+        // my_printf("size : %d\t", size);
+        // my_printf("occurences : %d   \t", nmb_occurences);
+        // my_putint(nmb_occurences * size);
+        // my_putchar('\t');
+        // my_putint(map_i * map_i_size);
+        // my_putchar('\n');
     }
     return valeures;
+}
+
+int are_same (ls_type_1 *off, ls_type_1 *explore, type_1_opt val)
+{
+    int tmp = 0;
+    for (int same = 0; same < val.same && how_far_list(explore, same) != NULL; same++)
+        if (!my_strcmp(how_far_list(off, same), how_far_list(explore, same)))
+            tmp++;
+    if (tmp != val.same)
+        return 0;
+    return 1;
+}
+
+void concat_first_elems (ls_type_1 *list)
+{
+    if (list == NULL || list->next == NULL)
+        return;
+    int size = my_strlen(list->str) + my_strlen(list->next->str) + 2;
+    char *final_v = malloc(sizeof(char) * size);
+    my_memset(final_v, size, '\0');
+    my_strcpy(final_v, list->str);
+    my_strcat(final_v, " ");
+    my_strcat(final_v, list->next->str);
+    free(list->str);
+    free(list->next->str);
+    list->str = final_v;
+    ls_type_1 *to_free = list->next;
+    list->next = to_free->next;
+    free(to_free);
+    return;
+}
+
+int concat_list (ls_type_1 *list, int size)
+{
+    for (int i = 0; i < size && list->next != NULL; i++)
+        concat_first_elems(list);
+    return 0;
 }
 
 int check_some_same (ls_type_1 *off)
 {
     ls_type_1 *list = off;
-    ls_type_1 *explore = off;
     type_1_opt val;
     val.opti = 0;
-    for (int i = 0; explore != NULL; i++) {
+    for (int i = 0; list != NULL; i++) {
         for (int same = 2; how_far_list(list, same - 1) != NULL && how_far_list(list, same) != NULL; same++) {
             type_1_opt tmp = some_same(list, same, i);
-            my_printf("tmp : %s\n", tmp);
-            val.opti = tmp.opti > val.opti ? tmp.opti : val.opti;
+            val = tmp.opti > val.opti ? tmp : val;
         }
+        list = list->next;
+    }
+    if (val.same == 1)
+        return 0;
+    // my_printf("\nmeilleur optimisation :\n");
+    // my_printf("chars optimisés : %d\n", val.opti);
+    // my_printf("position dans la liste : %d\n", val.i);
+    // my_printf("longueur : %d\n", val.same);
+    for (int q = 0; q < val.i; q++)
+        off = off->next;
+    ls_type_1 *explore = off;
+    for (int q = 0; q < val.same + 1; q++)
+        explore = explore->next;
+    int index = val.i + val.same;
+    for (int i = val.i; explore != NULL; i++) {
+        if (!my_strcmp(off->str, explore->str) && are_same(off, explore, val))
+            concat_list(explore, val.same - 1);
         explore = explore->next;
     }
-    my_printf("max opti : %d\n", val.opti);
-    // for (int i = val.i; map[i] != NULL; i++) {
-    //     int tmp = 0;
-    //     for (int same = 0; same < val.same && map[i + same] != NULL; same++)
-    //         if (!my_strcmp(map[i], map[i + same]))
-    //             tmp++;
-    //     if (tmp == val.same) {
-    //         /// my_strcat(map[i], map[i + 1]);
-    //     }
-    // }
-    return 0;
+    concat_list(off, val.same - 1);
+    return 1;
 }
 
 int type_1 (char *file)
 {
     ls_type_1 *list = str_to_file(file);
-    // int *arr = check_the_same(list);
-    // array_int_to_str(list, arr, file);
-    // free(arr);
-
-    check_some_same(list);
-
-    // disp_linked_list_am(list);
-    // dump_arr_int(arr);
-    // dump_arr_int_str(map, arr_int);
-
+    // if (my_list_size(list) < 500)
+    //     while (check_some_same(list));
+    check_the_same(list);
     my_putchar('\n');
     free_linked_list_am(list);
     return 0;

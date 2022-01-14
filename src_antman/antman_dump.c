@@ -36,15 +36,3 @@ void dump_arr_int (int *arr)
     my_putchar('\n');
     return;
 }
-
-void dump_arr_int_str (char **map, int *arr_int)
-{
-    for (int i = 1; i < arr_int[0]; i++) {
-        my_putint(arr_int[i]);
-        my_putstr("\t: ");
-        my_putstr(map[arr_int[i]]);
-        my_putstr("\n");
-    }
-    my_putchar('\n');
-    return;
-}

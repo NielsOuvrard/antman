@@ -52,7 +52,7 @@ void dump_array_str (char **map);
 
 void dump_arr_int (int *arr);
 
-void dump_arr_int_str (char **map, int *arr_int);
+void dump_arr_int_str (ls_type_1 *list, int *arr_int);
 
 // types
 
