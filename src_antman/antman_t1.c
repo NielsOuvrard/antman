@@ -238,8 +238,8 @@ int check_some_same (ls_type_1 *off)
 int type_1 (char *file)
 {
     ls_type_1 *list = str_to_file(file);
-    if (my_list_size(list) < 500)
-        while (check_some_same(list));
+    // if (my_list_size(list) < 500)
+    //     while (check_some_same(list));
     check_the_same(list);
     my_putchar('\n');
     free_linked_list_am(list);
