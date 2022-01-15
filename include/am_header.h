@@ -25,6 +25,7 @@ typedef struct cell_t {
 
 typedef struct ls_type_1 {
     char *str;
+    int a;
     struct ls_type_1 *next;
 } ls_type_1;
 
@@ -66,7 +67,7 @@ int type_3 (char *file);
 
 int free_linked_list_am (ls_type_1 *list);
 
-int my_put_in_list (ls_type_1 **list, char *str);
+int my_put_in_list (ls_type_1 **list, char *str, int a);
 
 int disp_linked_list_am (ls_type_1 *list);
 

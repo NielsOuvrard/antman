@@ -8,11 +8,12 @@
 #include "my.h"
 #include "am_header.h"
 
-int my_put_in_list (ls_type_1 **list, char *str)
+int my_put_in_list (ls_type_1 **list, char *str, int a)
 {
     ls_type_1 *element;
     element = malloc(sizeof(ls_type_1));
     element->str = str;
+    element->a = a;
     element->next = *list;
     *list = element;
     return (0);
@@ -64,7 +65,7 @@ void reverst_linked_list (ls_type_1 **off)
 {
     ls_type_1 *list = NULL;
     for (int k = 0; *off != NULL; k++) {
-        my_put_in_list(&list, (*off)->str);
+        my_put_in_list(&list, (*off)->str, (*off)->a);
         ls_type_1 *tmp = *off;
         (*off) = (*off)->next;
         free(tmp);
@@ -73,21 +74,21 @@ void reverst_linked_list (ls_type_1 **off)
     return;
 }
 
-void add_at_end (ls_type_1 **off, char *str)
-{
-    int size = my_list_size(*off);
-    ls_type_1 *list = NULL;
-    my_put_in_list(&list, str);
-    reverst_linked_list(off);
-    for (int k = size; k > 1 ; k--) {
-        my_put_in_list(&list, (*off)->str);
-        ls_type_1 *tmp = *off;
-        (*off) = (*off)->next;
-        free(tmp);
-    }
-    *off = list;
-    return;
-}
+// void add_at_end (ls_type_1 **off, char *str)
+// {
+//     int size = my_list_size(*off);
+//     ls_type_1 *list = NULL;
+//     my_put_in_list(&list, str);
+//     reverst_linked_list(off);
+//     for (int k = size; k > 1 ; k--) {
+//         my_put_in_list(&list, (*off)->str);
+//         ls_type_1 *tmp = *off;
+//         (*off) = (*off)->next;
+//         free(tmp);
+//     }
+//     *off = list;
+//     return;
+// }
 
 
 // ls_type_1 *tail_linked_list (ls_type_1 *off)

@@ -19,18 +19,6 @@ char *how_far_list (ls_type_1 *list, int far)
     return list->str;
 }
 
-void dump_arr_int_str (ls_type_1 *list, int *arr_int)
-{
-    for (int i = 1; i < arr_int[0]; i++) {
-        my_putint(arr_int[i]);
-        my_putstr("\t: ");
-        my_putstr(how_far_list(list, arr_int[i]));
-        my_putstr("\n");
-    }
-    my_putchar('\n');
-    return;
-}
-
 ls_type_1 *str_to_file (char *str)
 {
     int k = 0, size, i_map = 0;
@@ -43,19 +31,24 @@ ls_type_1 *str_to_file (char *str)
     ls_type_1 *list = NULL;
     for (int i = 0; str[i] != '\0'; i++) {
         for (size = 0; str[i + size] != '\0' && str[i + size] != ' ' && str[i + size] != '\n'; size++);
+        int a = 0;
         char *tmp = malloc(sizeof(char) * (size + 1));
         my_memset(tmp, size + 1, '\0');
+        if (str[i + size] == '\n')
+            a = 2;
+        else if (str[i + size] == ' ')
+            a = 1;
         for (int j = 0; j < size; j++)
             tmp[j] = str[i + j];
-        my_put_in_list(&list, tmp);
+        my_put_in_list(&list, tmp, a);
         if (str[i + size] == '\0')
             i++;
-        if (str[i + size] == '\n') {
-            char *tmp2 = malloc(sizeof(char) * 2);
-            my_memset(tmp2, 2, '\0');
-            tmp2[0] = '\n';
-            my_put_in_list(&list, tmp2);
-        }
+        // if (str[i + size] == '\n') {
+        //     char *tmp2 = malloc(sizeof(char) * 2);
+        //     my_memset(tmp2, 2, '\0');
+        //     tmp2[0] = '\n';
+        //     my_put_in_list(&list, tmp2);
+        // }
         i += size;
     }
     reverst_linked_list(&list);
@@ -92,7 +85,7 @@ void check_the_same (ls_type_1 *list)
     ls_type_1 *alone = NULL;
     while (explore) {
         if (!exist_in_list(alone, explore->str)) {
-            my_put_in_list(&alone, explore->str);
+            my_put_in_list(&alone, explore->str, explore->a);
         }
         explore = explore->next;
     }
@@ -103,35 +96,21 @@ void check_the_same (ls_type_1 *list)
         my_putstr("@");
         dico = dico->next;
     }
+    my_putchar('|');
     while (list) {
-        my_putchar('|');
         my_putint(exist_in_list(alone, list->str));
+        if (list->a == 1)
+            my_putchar('|');
+        else if (list->a == 2)
+            my_putchar('^');
+        else
+            my_putchar('?');
         list = list->next;
     }
     return;
 }
 
-void array_int_to_str (ls_type_1 *list, int *array_int, char *file)
-{
-    for (int i = 1; i < array_int[0]; i++) {
-        my_putstr(how_far_list(list, array_int[i]));
-        my_putstr("@");
-    }
-    ls_type_1 *explore = list;
-    for (int i = 0; explore != NULL; i++) {
-        for (int j = 1; j < array_int[0]; j++) {
-            if (!my_strcmp(explore->str, how_far_list(list, array_int[j]))) {                /// C1
-                my_putchar('|');
-                my_putint(j);
-                // my_printf("on check %s\n", explore->str);
-            }
-        }
-        explore = explore->next;
-    }
-    return;
-}
-
-//////////////////////// OPTI MIN ////////////////////
+//////////////////////// OPTI MIN /////////////////////////////////////////////
 
 int some_str_are_same (ls_type_1 *list, int same, int dec)
 {
@@ -259,8 +238,8 @@ int check_some_same (ls_type_1 *off)
 int type_1 (char *file)
 {
     ls_type_1 *list = str_to_file(file);
-    // if (my_list_size(list) < 500)
-    //     while (check_some_same(list));
+    if (my_list_size(list) < 500)
+        while (check_some_same(list));
     check_the_same(list);
     my_putchar('\n');
     free_linked_list_am(list);
