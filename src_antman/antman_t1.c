@@ -22,12 +22,6 @@ char *how_far_list (ls_type_1 *list, int far)
 ls_type_1 *str_to_file (char *str)
 {
     int k = 0, size, i_map = 0;
-    for (int i = 0; str[i] != '\0'; i++) {
-        if (str[i] == ' ' )
-            k++;
-        else if (str[i] == '\n')
-            k += 2;
-    }
     ls_type_1 *list = NULL;
     for (int i = 0; str[i] != '\0'; i++) {
         for (size = 0; str[i + size] != '\0' && str[i + size] != ' ' && str[i + size] != '\n'; size++);
@@ -43,12 +37,6 @@ ls_type_1 *str_to_file (char *str)
         my_put_in_list(&list, tmp, a);
         if (str[i + size] == '\0')
             i++;
-        // if (str[i + size] == '\n') {
-        //     char *tmp2 = malloc(sizeof(char) * 2);
-        //     my_memset(tmp2, 2, '\0');
-        //     tmp2[0] = '\n';
-        //     my_put_in_list(&list, tmp2);
-        // }
         i += size;
     }
     reverst_linked_list(&list);
@@ -84,9 +72,8 @@ void check_the_same (ls_type_1 *list)
     ls_type_1 *explore = list;
     ls_type_1 *alone = NULL;
     while (explore) {
-        if (!exist_in_list(alone, explore->str)) {
+        if (!exist_in_list(alone, explore->str))
             my_put_in_list(&alone, explore->str, explore->a);
-        }
         explore = explore->next;
     }
     reverst_linked_list(&alone);
@@ -103,8 +90,6 @@ void check_the_same (ls_type_1 *list)
             my_putchar('|');
         else if (list->a == 2)
             my_putchar('^');
-        else
-            my_putchar('?');
         list = list->next;
     }
     return;
@@ -184,8 +169,12 @@ void concat_first_elems (ls_type_1 *list)
     char *final_v = malloc(sizeof(char) * size);
     my_memset(final_v, size, '\0');
     my_strcpy(final_v, list->str);
-    my_strcat(final_v, " ");
+    if (list->a == 1)
+        my_strcat(final_v, " ");
+    else if (list->a == 2)
+        my_strcat(final_v, "\n");
     my_strcat(final_v, list->next->str);
+    list->a = list->next->a;
     free(list->str);
     free(list->next->str);
     list->str = final_v;
@@ -238,10 +227,12 @@ int check_some_same (ls_type_1 *off)
 int type_1 (char *file)
 {
     ls_type_1 *list = str_to_file(file);
-    // if (my_list_size(list) < 500)
-    //     while (check_some_same(list));
+    if (my_list_size(list) < 500)
+        while (check_some_same(list));
     check_the_same(list);
     my_putchar('\n');
     free_linked_list_am(list);
     return 0;
 }
+
+// créer liste avec une tail pour opti
