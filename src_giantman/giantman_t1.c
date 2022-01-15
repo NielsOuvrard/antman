@@ -35,10 +35,8 @@ void dico_to_file (char **dico, char *file)
     int i, size = my_strlen(file);
     for (i = 0; file[i] != '|'; i++);
     for (i++; i < size; i++) {
-        if (file[i + 1] == '\0') {
-            my_putchar('\n');
+        if (file[i + 1] == '\0')
             return;
-        }
         int nmb = 0;
         for (i; i < size && file[i] != '|' && file[i] != '\n' && file[i] != '^'; i++) {
             nmb += CTOI(file[i]);
