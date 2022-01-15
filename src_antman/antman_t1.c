@@ -24,7 +24,8 @@ ls_type_1 *str_to_file (char *str)
     int k = 0, size, i_map = 0;
     ls_type_1 *list = NULL;
     for (int i = 0; str[i] != '\0'; i++) {
-        for (size = 0; str[i + size] != '\0' && str[i + size] != ' ' && str[i + size] != '\n'; size++);
+        for (size = 0; str[i + size] != '\0' && str[i + size] != ' '
+        && str[i + size] != '\n'; size++);
         int a = 0;
         char *tmp = malloc(sizeof(char) * (size + 1));
         my_memset(tmp, size + 1, '\0');
@@ -43,17 +44,17 @@ ls_type_1 *str_to_file (char *str)
     return list;
 }
 
-int *delet_the_value (int *array, int value)
-{
-    int index;
-    for (index = 1; array[index] != value && index < array[0]; index++);
-    while (index + 1 < array[0]) {
-        array[index] = array[index + 1];
-        index++;
-    }
-    array[0] -= 1;
-    return array;
-}
+// int *delet_the_value (int *array, int value)
+// {
+//     int index;
+//     for (index = 1; array[index] != value && index < array[0]; index++);
+//     while (index + 1 < array[0]) {
+//         array[index] = array[index + 1];
+//         index++;
+//     }
+//     array[0] -= 1;
+//     return array;
+// }
 
 int exist_in_list (ls_type_1 *list, char *s)
 {
@@ -64,7 +65,7 @@ int exist_in_list (ls_type_1 *list, char *s)
         i++;
         list = list->next;
     }
-    return 0;
+    return -1;
 }
 
 void check_the_same (ls_type_1 *list)
@@ -72,11 +73,16 @@ void check_the_same (ls_type_1 *list)
     ls_type_1 *explore = list;
     ls_type_1 *alone = NULL;
     while (explore) {
-        if (!exist_in_list(alone, explore->str))
+        if (exist_in_list(alone, explore->str) == -1)
             my_put_in_list(&alone, explore->str, explore->a);
         explore = explore->next;
     }
     reverst_linked_list(&alone);
+
+    // for (int i = 0; i < 30; i++)
+    //     my_putstr("\n");
+    // disp_linked_list_am(alone);
+
     ls_type_1 *dico = alone;
     while (dico) {
         my_putstr(dico->str);
@@ -227,6 +233,7 @@ int check_some_same (ls_type_1 *off)
 int type_1 (char *file)
 {
     ls_type_1 *list = str_to_file(file);
+    // disp_linked_list_am(list);
     if (my_list_size(list) < 500)
         while (check_some_same(list));
     check_the_same(list);
