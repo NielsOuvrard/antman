@@ -56,7 +56,7 @@ int nbn(char *file, int start) {
     return res - 1;
 }
 
-void size(char *file, List **list) {
+void size(char *file, List **list, List **enda) {
 
     int a = 0, i = find_start(file), res = 0, temp1, temp2, tot = 1, nb = nbn(file, find_start(file));
 
@@ -76,7 +76,7 @@ void size(char *file, List **list) {
         if(temp1 == temp2)
             tot++;
         if(temp1 != temp2) {
-            *list = addat(*list, temp1, tot, a);
+            addend(temp1, tot, enda, list);
             tot = 1;
             a++;
         }
@@ -88,7 +88,8 @@ void size(char *file, List **list) {
 int type_3 (char *file)
 {
     List *list = emptylist();
-    size(file, &list);
+    List *enda = NULL;
+    size(file, &list, &enda);
     printlist(list);
     return 0;
 }

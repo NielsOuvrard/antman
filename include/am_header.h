@@ -79,7 +79,7 @@ void add_at_end (ls_type_1 **list, char *str);
 
 void reverst_linked_list (ls_type_1 **off);
 
-// chained list
+// chained list list.c
 
 static Cell *createcell(int nbr, int total);
 
@@ -101,4 +101,4 @@ List *freeat(List *L, int pos);
 
 List *addat(List *L, int nbr, int total, int pos);
 
-List *addend(int nbr, int total, List *enda);
+void addend(int nbr, int total, List **enda, List **list);

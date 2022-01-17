@@ -142,15 +142,20 @@ List *addat(List *L, int nbr, int total, int pos)
     return L;
 }
 
-List *addend(int nbr, int total, List *enda)
+void addend(int nbr, int total, List **enda, List **list)
 {
-
     Cell *cell = createcell(nbr, total);
+
+    if(*list==NULL) {
+      *list=cell;
+      *enda = cell;
+       return;
+    }
     cell->next = NULL;
-    cell->prev = enda;
-    enda->next = cell;
-    enda = cell;
-    return enda;
+    (*enda)->next = cell;
+    (*enda) = (*enda)->next;
+
+    return;
 }
 
 
