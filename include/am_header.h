@@ -20,26 +20,62 @@ typedef struct cell_t {
     int total;
     struct cell_t *next;
     struct cell_t *prev;
+} List, Cell;
 
-}List, Cell;
+typedef struct list_val {
+    int *binary;
+    char value;
+    int occ;
+    struct list_val *next;
+} list_val;
 
-typedef struct ls_type_1 {
-    char *str;
-    int a;
-    struct ls_type_1 *next;
-} ls_type_1;
+typedef struct node_binary {
+    int *binary;
+    int type;
+    char value;
+    int occ;
+    struct node_binary *left, *right;
+} node_binary;
 
-// typedef struct linked_list_ps {
-//     int nbr;
-//     struct linked_list_ps *next;
-// } linked_list_ps;
+typedef struct head_node_binary {
+    node_binary *node;
+    struct head_node_binary *next;
+} head_node_binary;
 
-typedef struct type_1_opt {
-    int opti;
-    int same;
-    int i;
+// avant arbres binaires :
 
-} type_1_opt;
+// head
+
+void my_put_in_list_head (head_node_binary **head, node_binary *body);
+
+int disp_linked_list_am_2 (head_node_binary *list);
+
+void disp_head_list (head_node_binary *head);
+
+// body
+
+node_binary *first_elem (char value, int occ, int type);
+
+int my_put_in_tree (node_binary **tree, char value, int occ, int a);
+
+int disp_linked_tree_am (node_binary *tree);
+
+int my_tree_size (node_binary const *tree);
+
+// bientot suppr car opti :
+
+int my_put_in_list (list_val **list, char value, int a);
+
+int free_linked_list_am (list_val *list);
+
+int disp_linked_list_am (list_val *list);
+
+int my_list_size (list_val const *begin);
+
+list_val *tail_linked_list (list_val *off);
+
+void reverst_linked_list (list_val **off);
+
 
 // op on files
 
@@ -53,8 +89,6 @@ void dump_array_str (char **map);
 
 void dump_arr_int (int *arr);
 
-void dump_arr_int_str (ls_type_1 *list, int *arr_int);
-
 // types
 
 int type_1 (char *file);
@@ -65,21 +99,23 @@ int type_3 (char *file);
 
 // list type 1
 
-int free_linked_list_am (ls_type_1 *list);
+// int free_linked_list_am (ls_type_1 *list);
 
-int my_put_in_list (ls_type_1 **list, char *str, int a);
+// int my_put_in_list (ls_type_1 **list, char *str, int a);
 
-int disp_linked_list_am (ls_type_1 *list);
+// int disp_linked_list_am (ls_type_1 *list);
 
-int my_list_size (ls_type_1 const *begin);
+// int my_list_size (ls_type_1 const *begin);
 
-ls_type_1 *tail_linked_list (ls_type_1 *l_1);
+// ls_type_1 *tail_linked_list (ls_type_1 *l_1);
 
-void add_at_end (ls_type_1 **list, char *str);
+// void add_at_end (ls_type_1 **list, char *str);
 
-void reverst_linked_list (ls_type_1 **off);
+// void reverst_linked_list (ls_type_1 **off);
 
 // chained list list.c
+
+
 
 static Cell *createcell(int nbr, int total);
 
