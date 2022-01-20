@@ -215,7 +215,7 @@ void find_and_disp_the_char (list_val *tree, char c, char *str, int *idx)
                 str[(*idx)] = ITOC(tree->binary[i]);
                 (*idx)++;
             }
-            // disp_array(tree->binary);
+            disp_array(tree->binary);
             // my_putchar(' ');
             return;
         }
@@ -234,7 +234,8 @@ int size_of_malloc (list_val *tree, char c)
     return 0;
 }
 
-void printbits_two (char *str_bits) {
+void printbits_two (char *str_bits)
+{
     int j = 0;
     while (str_bits[j] != '\0') {
         int mask = 1;
@@ -270,6 +271,21 @@ void printbits_two (char *str_bits) {
 
 // return status pour return le truc de ls là
 
+
+void disp_tree (node_binary *tree)
+{
+    if (tree->left)
+        disp_tree(tree->left);
+    if (tree->right)
+        disp_tree(tree->right);
+    if (!(tree->left) && !(tree->right)) {
+        my_printf("%c: ", tree->value);
+        my_printf("\t occ : %d\t", tree->occ);
+        disp_array(tree->binary);
+        my_putchar('\n');
+    }
+}
+
 int type_1 (char *file)
 {
     list_val *caracters = new_list(file);
@@ -277,23 +293,27 @@ int type_1 (char *file)
     my_putchar('|');
     int size = my_list_size(caracters);
     reverst_linked_list(&caracters);
+    // disp_linked_list_am(caracters);
     node_binary *tree = creat_binaty_tree(caracters);
     int *bits = malloc(sizeof(int) * size);
     makes_bits(tree, bits, 0);
     free(bits);
     compact_two_list(tree, caracters);
+    // disp_tree(tree);
     // my_printf("\n\n\n\n");
     // disp_array(caracters->binary, 3);
     // disp_the_nodes(caracters);
     int malloc_sz = 0, index_str = 0;
     for (int i = 0; file[i] != '\0'; i++)
         malloc_sz += size_of_malloc(caracters, file[i]);
+    my_putchar('\n');
     char *str_bits = malloc(sizeof(char) * (malloc_sz + 1));
     my_memset(str_bits, malloc_sz + 1, '\0');
     for (int i = 0; file[i] != '\0'; i++)
         find_and_disp_the_char(caracters, file[i], str_bits, &index_str);
     // my_putstr(str_bits);
-    printbits_two(str_bits);
+    // my_putchar('\n');
+    // printbits_two(str_bits);
     // for (int i = 0; str_bits[i] != '\0'; i++) {
     //     printbits_two(str_bits, i);
     //     i += 7;

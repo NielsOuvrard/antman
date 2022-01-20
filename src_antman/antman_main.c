@@ -38,14 +38,3 @@ int main (int ac, char **av)
 // 1 : lyr
 // 2 : html
 // 3 : ppm
-
-// on regarde ligne par lignes
-// pour chaque lignes, on check les 2 , puis les 3, les 4 ...
-// (avec tous les groupes de mots possibles dans la ligne)
-// premiers caracteres et on regarde combien de fois ils se répète dans le fichier
-
-// on accorde une valeure à ce dictionnaire en fonction :
-//      nombre d'apparition
-//      taille
-
-// on transforme avec le dictionnaire le plus intéressant le fichier

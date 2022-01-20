@@ -64,7 +64,17 @@ int my_tree_size (node_binary const *tree);
 
 // bientot suppr car opti :
 
-int my_put_in_list (list_val **list, char value, int a);
+list_val *in_new_list (list_val *caracters, char *file, int i);
+
+int is_sorted (list_val *caracters);
+
+void sort_one_time (list_val *caracters);
+
+list_val *sort_according_to_occ (list_val *caracters);
+
+list_val *new_list (char *file);
+
+int my_put_in_list (list_val **list, char value, int occ);
 
 int free_linked_list_am (list_val *list);
 
