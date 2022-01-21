@@ -42,8 +42,6 @@ typedef struct head_node_binary {
     struct head_node_binary *next;
 } head_node_binary;
 
-// avant arbres binaires :
-
 // head
 
 void my_put_in_list_head (head_node_binary **head, node_binary *body);
@@ -86,14 +84,11 @@ list_val *tail_linked_list (list_val *off);
 
 void reverst_linked_list (list_val **off);
 
-
 // op on files
 
 char *file_to_str (char *file_name, int *size);
 
 void my_putfile (char *file, int len);
-
-// char **str_to_array (char *str);
 
 // dump
 
@@ -108,24 +103,6 @@ int type_1 (char *file, int size);
 int type_3 (char *file);
 
 // list type 1
-
-// int free_linked_list_am (ls_type_1 *list);
-
-// int my_put_in_list (ls_type_1 **list, char *str, int a);
-
-// int disp_linked_list_am (ls_type_1 *list);
-
-// int my_list_size (ls_type_1 const *begin);
-
-// ls_type_1 *tail_linked_list (ls_type_1 *l_1);
-
-// void add_at_end (ls_type_1 **list, char *str);
-
-// void reverst_linked_list (ls_type_1 **off);
-
-// chained list list.c
-
-
 
 static Cell *createcell(int nbr, int total);
 

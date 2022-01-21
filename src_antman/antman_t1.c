@@ -69,7 +69,6 @@ list_val *new_list (char *file)
 node_binary *concat_two_tree (node_binary *tree_1, node_binary *tree_2)
 {
     int occ = tree_1->occ + tree_2->occ;
-    // my_printf("total occ : %d\n", occ);
     node_binary *tree = first_elem('\0', occ, 0);
     tree->right = tree_1;
     tree->left = tree_2;
@@ -107,16 +106,11 @@ node_binary *creat_binaty_tree (list_val *caracters)
     if (!caracters)
         return NULL;
     head_node_binary *head = all_in_list_head(caracters);
-    // disp_head_list(head);
-
     while (head->next != NULL) {
-        // my_printf("on cocat %c", head->node->value);
-        // my_printf(" \tavec %c\n", head->next->node->value);
         head->next->node = concat_two_tree(head->node, head->next->node);
         head = head->next;
         head = sort_first_elem_head(head);
     }
-    // disp_head_list(head);
     return head->node;
 }
 
@@ -137,17 +131,10 @@ void makes_bits (node_binary* tree, int *bits, int top)
         makes_bits(tree->right, bits, top + 1);
     }
     if (!(tree->left) && !(tree->right)) {
-        // my_printf("%c: ", tree->value);
-        // bits[top] = '\0';
-        // disp_array(bits, top);
-        // int *bits = malloc(sizeof(int) * top);
         tree->binary = malloc(sizeof(int) * (top + 1));
-        // bits[0] = top;
         tree->binary[0] = top;
         for (int i = 0; i < top; i++)
             tree->binary[i + 1] = bits[i];
-        // disp_array(tree->binary, top);
-        // my_printf("%s\n", bits);
     }
 }
 
@@ -181,8 +168,6 @@ void find_the_binary_int_tree (node_binary *tree, list_val **node)
         find_the_binary_int_tree(tree->right, node);
     if (!(tree->left) && !(tree->right) && tree->value == (*node)->value)
         (*node)->binary = tree->binary;
-    //     return tree->binary;
-    // return tree->binary;
 }
 
 void compact_two_list (node_binary *tree, list_val *node)
@@ -199,8 +184,6 @@ void disp_the_nodes (list_val *list)
         my_printf("char : %c\t", list->value);
         my_printf("occ : %d  \t", list->occ);
         my_printf("binary : ");
-        // my_printf("taille bits : %d\n", list->binary[0]);
-        // disp_array(list->binary);
         disp_array(list->binary);
         my_putchar('\n');
         list = list->next;
@@ -215,8 +198,6 @@ int find_and_disp_the_char (list_val *tree, char c, char *str, int *idx)
                 str[(*idx)] = ITOC(tree->binary[i]);
                 (*idx)++;
             }
-            // disp_array(tree->binary);
-            // my_putchar(' ');
             return tree->binary[0];
         }
         tree = tree->next;
@@ -237,13 +218,12 @@ int size_of_malloc (list_val *tree, char c)
 void printbits_two (char *str_bits)
 {
     int j = 0;
-    while (1) { //str_bits[j] != '\0'
+    while (1) {
         int mask = 1;
         char c = 0;
         for (int i = j; i < j + 8; i++) {
-            if (str_bits[i] == '\0') {
+            if (str_bits[i] == '\0') {                  // C1
                 my_putchar(c);
-                my_putchar(ITOC(i - j));
                 return;
             }
             if (str_bits[i] == '1')
@@ -255,8 +235,6 @@ void printbits_two (char *str_bits)
         my_putchar(c);
         j += 8;
     }
-    // my_putchar('e');
-    // my_putchar('0');
 }
 
 void disp_tree (node_binary *tree)
@@ -280,32 +258,22 @@ int type_1 (char *file, int marvin)
     my_putchar('|');
     int size = my_list_size(caracters);
     reverst_linked_list(&caracters);
-    // disp_linked_list_am(caracters);
     node_binary *tree = creat_binaty_tree(caracters);
     int *bits = malloc(sizeof(int) * size);
     makes_bits(tree, bits, 0);
     free(bits);
     compact_two_list(tree, caracters);
-    // disp_tree(tree);
-    // my_printf("\n\n\n\n");
-    // disp_array(caracters->binary, 3);
-    // disp_the_nodes(caracters);
     int malloc_sz = 0, index_str = 0;
     for (int i = 0; file[i] != '\0'; i++)
         malloc_sz += size_of_malloc(caracters, file[i]);
-    // my_putchar('\n');
     char *str_bits = malloc(sizeof(char) * (malloc_sz + 1));
     my_memset(str_bits, malloc_sz + 1, '\0');
-    // my_putchar('\n');
     int nmb_bits = 0;
     for (int i = 0; file[i] != '\0'; i++)
         nmb_bits += find_and_disp_the_char(caracters, file[i], str_bits, &index_str);
-    // my_putchar('\n');
-    // my_putstr(str_bits);
     my_putint(nmb_bits);
     my_putstr("^");
     printbits_two(str_bits);
-    // my_putchar(file[i - 1]);
     // for (int i = 0; str_bits[i] != '\0'; i++) {
     //     printbits_two(str_bits, i);
     //     i += 7;
@@ -314,11 +282,3 @@ int type_1 (char *file, int marvin)
     //     free_binary_tree(tree);
     return 0;
 }
-
-// on met le nombre de 0 qu'il y a en plus dans le dernier bit
-
-// output: g1000| 000|e010|01010
-
-// |a124|f64|h34| 23| ...
-
-// si négatif en décompression, faire + 256

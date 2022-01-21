@@ -10,7 +10,7 @@
 
 int antman (char *file, int type)
 {
-    if (type == 1)
+    if (type == 1 || type == 2)
         type_1(file, type);
     else if (type == 2)
         type_1(file, type);
@@ -34,8 +34,3 @@ int main (int ac, char **av)
     antman(file, my_getnbr(av[2]));
     return 0;
 }
-
-// TYPES :
-// 1 : lyr
-// 2 : html
-// 3 : ppm

@@ -12,7 +12,7 @@ char nbrbi(int a)
 {
     int mask = 1;
     char e = 0x00000000;
-    for (int x = 0; x < 8;x++) {
+    for (int x = 0; x < 8; x++) {
         if (!!(a & mask) == 1)
             e = (e | mask);
         mask = mask * 2;
