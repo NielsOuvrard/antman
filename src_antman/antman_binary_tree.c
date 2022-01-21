@@ -31,15 +31,6 @@ int my_put_in_tree (node_binary **tree, char value, int occ, int a)
         element->value = '\0';
     element->occ = occ;
     a /= 10;
-    // if (a) {
-    //     node_binary *tmp = tree->right;
-    //     tree->right = element;
-    //     element->right = tmp;
-    // } else {
-    //     node_binary *tmp = tree->left;
-    //     tree->left = element;
-    //     element->left = tmp;
-    // }
     if (a)
         element->right = *tree;
     else
@@ -74,65 +65,3 @@ int my_tree_size (node_binary const *tree)
     }
     return number;
 }
-
-// int free_linked_tree_am (node_binary *tree)      // compliqué
-// {
-//     while (tree != NULL) {
-//         node_binary *tmp = tree;
-//         tree = tree->right;
-//         free(tmp);
-//     }
-//     free(tree);
-//     return 0;
-// }
-
-
-// node_binary *tail_linked_tree (node_binary *tree)
-// {
-//     if (tree == NULL)
-//         return tree;
-//     while (tree->right != NULL)
-//         tree = tree->right;
-//     node_binary *tail = tree;
-//     return tail;
-// }
-
-// void reverst_linked_tree (node_binary **off)
-// {
-//     node_binary *tree = NULL;
-//     for (int k = 0; *off != NULL; k++) {
-//         my_put_in_tree(&tree, (*off)->str, (*off)->a);
-//         node_binary *tmp = *off;
-//         (*off) = (*off)->next;
-//         free(tmp);
-//     }
-//     *off = tree;
-//     return;
-// }
-
-// void add_at_end (node_binary **off, char *str)
-// {
-//     int size = my_tree_size(*off);
-//     node_binary *tree = NULL;
-//     my_put_in_tree(&tree, str);
-//     reverst_linked_tree(off);
-//     for (int k = size; k > 1 ; k--) {
-//         my_put_in_tree(&tree, (*off)->str);
-//         node_binary *tmp = *off;
-//         (*off) = (*off)->next;
-//         free(tmp);
-//     }
-//     *off = tree;
-//     return;
-// }
-
-
-// node_binary *tail_linked_tree (node_binary *off)
-// {
-//     if (off == NULL)
-//         return off;
-//     while (off->next != NULL)
-//         off = off->next;
-//     node_binary *tail = off;
-//     return tail;
-// }

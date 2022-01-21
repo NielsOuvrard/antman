@@ -8,20 +8,6 @@
 #include "my.h"
 #include "am_header.h"
 
-
-// int my_put_in_array_list (head_node_binary *array, list_val *list)
-// {
-//     head_node_binary *element;
-//     element = malloc(sizeof(head_node_binary));
-//     element->array
-//     element->occ = occ;
-//     element->next = *array;
-//     *array = element;
-//     return (0);
-// }
-
-
-
 void my_put_in_list_head (head_node_binary **head, node_binary *body)
 {
     head_node_binary *element;
@@ -78,22 +64,6 @@ void disp_head_list (head_node_binary *head)
     }
 }
 
-// int disp_linked_list_am_2 (head_node_binary *list)
-// {
-//     my_printf("Array of list\tsize : %d\n", list->size);
-//     for (int i = 0; list->array[i] != NULL; i++) {
-//         my_putstr("value : ");
-//         if (list->array[i]->value != '\n')
-//             my_putchar(list->array[i]->value);
-//         else
-//             my_putstr("\\n");
-//         my_putstr("\tocc : ");
-//         my_putint(list->array[i]->occ);
-//         my_putchar('\n');
-//     }
-//     return 1;
-// }
-
 int disp_linked_list_am (list_val *list)
 {
     while (list != NULL) {
@@ -142,30 +112,3 @@ void reverst_linked_list (list_val **off)
     *off = list;
     return;
 }
-
-// void add_at_end (list_val **off, char *str)
-// {
-//     int size = my_list_size(*off);
-//     list_val *list = NULL;
-//     my_put_in_list(&list, str);
-//     reverst_linked_list(off);
-//     for (int k = size; k > 1 ; k--) {
-//         my_put_in_list(&list, (*off)->str);
-//         list_val *tmp = *off;
-//         (*off) = (*off)->next;
-//         free(tmp);
-//     }
-//     *off = list;
-//     return;
-// }
-
-
-// list_val *tail_linked_list (list_val *off)
-// {
-//     if (off == NULL)
-//         return off;
-//     while (off->next != NULL)
-//         off = off->next;
-//     list_val *tail = off;
-//     return tail;
-// }

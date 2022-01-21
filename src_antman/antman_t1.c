@@ -207,7 +207,7 @@ void disp_the_nodes (list_val *list)
     }
 }
 
-void find_and_disp_the_char (list_val *tree, char c, char *str, int *idx)
+int find_and_disp_the_char (list_val *tree, char c, char *str, int *idx)
 {
     while (tree) {
         if (tree->value == c) {
@@ -215,13 +215,13 @@ void find_and_disp_the_char (list_val *tree, char c, char *str, int *idx)
                 str[(*idx)] = ITOC(tree->binary[i]);
                 (*idx)++;
             }
-            disp_array(tree->binary);
+            // disp_array(tree->binary);
             // my_putchar(' ');
-            return;
+            return tree->binary[0];
         }
         tree = tree->next;
     }
-    return;
+    return 0;
 }
 
 int size_of_malloc (list_val *tree, char c)
@@ -237,13 +237,13 @@ int size_of_malloc (list_val *tree, char c)
 void printbits_two (char *str_bits)
 {
     int j = 0;
-    while (str_bits[j] != '\0') {
+    while (1) { //str_bits[j] != '\0'
         int mask = 1;
         char c = 0;
         for (int i = j; i < j + 8; i++) {
             if (str_bits[i] == '\0') {
                 my_putchar(c);
-                my_putint(i - j);
+                my_putchar(ITOC(i - j));
                 return;
             }
             if (str_bits[i] == '1')
@@ -255,22 +255,9 @@ void printbits_two (char *str_bits)
         my_putchar(c);
         j += 8;
     }
-    my_putchar('0');
+    // my_putchar('e');
+    // my_putchar('0');
 }
-
-// void printbits_paul (char *it, char c) {
-//     int mask = 1;
-//     for (int i = 0; i < 8; i++) {
-//         if (it[i] == '1')
-//             c = (c | mask);
-//         else if (it[i] == '0' && (c & mask) != 0)
-//             c = (c ^ mask);
-//         mask = mask * 2;
-//     }
-// }
-
-// return status pour return le truc de ls là
-
 
 void disp_tree (node_binary *tree)
 {
@@ -286,7 +273,7 @@ void disp_tree (node_binary *tree)
     }
 }
 
-int type_1 (char *file)
+int type_1 (char *file, int marvin)
 {
     list_val *caracters = new_list(file);
     disp_char_occ(caracters);
@@ -306,14 +293,19 @@ int type_1 (char *file)
     int malloc_sz = 0, index_str = 0;
     for (int i = 0; file[i] != '\0'; i++)
         malloc_sz += size_of_malloc(caracters, file[i]);
-    my_putchar('\n');
+    // my_putchar('\n');
     char *str_bits = malloc(sizeof(char) * (malloc_sz + 1));
     my_memset(str_bits, malloc_sz + 1, '\0');
-    for (int i = 0; file[i] != '\0'; i++)
-        find_and_disp_the_char(caracters, file[i], str_bits, &index_str);
-    // my_putstr(str_bits);
     // my_putchar('\n');
-    // printbits_two(str_bits);
+    int nmb_bits = 0;
+    for (int i = 0; file[i] != '\0'; i++)
+        nmb_bits += find_and_disp_the_char(caracters, file[i], str_bits, &index_str);
+    // my_putchar('\n');
+    // my_putstr(str_bits);
+    my_putint(nmb_bits);
+    my_putstr("^");
+    printbits_two(str_bits);
+    // my_putchar(file[i - 1]);
     // for (int i = 0; str_bits[i] != '\0'; i++) {
     //     printbits_two(str_bits, i);
     //     i += 7;

@@ -89,7 +89,9 @@ void reverst_linked_list (list_val **off);
 
 // op on files
 
-char *file_to_str (char *file_name);
+char *file_to_str (char *file_name, int *size);
+
+void my_putfile (char *file, int len);
 
 // char **str_to_array (char *str);
 
@@ -101,9 +103,7 @@ void dump_arr_int (int *arr);
 
 // types
 
-int type_1 (char *file);
-
-int type_2 (char *file);
+int type_1 (char *file, int size);
 
 int type_3 (char *file);
 

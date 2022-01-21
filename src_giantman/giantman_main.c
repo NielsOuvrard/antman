@@ -8,12 +8,12 @@
 #include "my.h"
 #include "am_header.h"
 
-int giantman (char *file, int type)
+int giantman (char *file, int type, int size)
 {
     if (type == 1)
-        type_1(file);
+        type_1(file, size);
     else if (type == 2)
-        type_2(file);
+        type_1(file, size);
     else
         type_3(file);
     free(file);
@@ -27,9 +27,10 @@ int main (int ac, char **av)
     if (my_strcmp(av[2], "1") && my_strcmp(av[2], "2")
     && my_strcmp(av[2], "3"))
         return 84;
-    char *file = file_to_str(av[1]);
+    int size = 0;
+    char *file = file_to_str(av[1], &size);
     if (file == NULL)
         return 84;
-    giantman(file, my_getnbr(av[2]));
+    giantman(file, my_getnbr(av[2]), size);
     return 0;
 }
