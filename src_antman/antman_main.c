@@ -15,7 +15,7 @@ int antman (char *file, int type)
     else if (type == 2)
         type_1(file, type);
     else
-        type_3(file);
+        type_3(file, type);
     free(file);
     return 0;
 }

@@ -15,7 +15,7 @@ int giantman (char *file, int type, int size)
     else if (type == 2)
         type_1(file, size);
     else
-        type_3(file);
+        type_3(file, size);
     free(file);
     return 0;
 }

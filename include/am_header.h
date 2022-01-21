@@ -100,7 +100,7 @@ void dump_arr_int (int *arr);
 
 int type_1 (char *file, int size);
 
-int type_3 (char *file);
+int type_3 (char *file, int size);
 
 // list type 1
 

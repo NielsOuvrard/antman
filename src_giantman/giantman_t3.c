@@ -19,15 +19,12 @@ int bi_dec(char i)
     return tot;
 }
 
-int type_3 (char *file)
+int type_3 (char *file, int size)
 {
-    struct stat e;
     int i = 0;
-    stat(file, &e);
     for (i; file[i] != '|'; i++)
         my_putchar(file[i]);
     i++;
-    int size = e.st_size;
     for (i; i < size - 1; i++) {
         my_putunsint(bi_dec(file[i]));
         my_putchar('\n');

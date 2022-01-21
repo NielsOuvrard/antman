@@ -55,7 +55,7 @@ int find_start(char *file)
     return i;
 }
 
-int type_3 (char *file)
+int type_3 (char *file, int cbnjh)
 {
     int i = find_start(file), eee;
     for (int x = 0; x < i; x++)
