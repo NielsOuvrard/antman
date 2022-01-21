@@ -25,7 +25,7 @@ int type_3 (char *file, int size)
     for (i; file[i] != '|'; i++)
         my_putchar(file[i]);
     i++;
-    for (i; i < size - 1; i++) {
+    for (i; i < size; i++) {
         my_putunsint(bi_dec(file[i]));
         my_putchar('\n');
     }
