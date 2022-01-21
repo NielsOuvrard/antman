@@ -8,11 +8,11 @@
 #include "my.h"
 #include "am_header.h"
 
-char **the_dico (char *file)
+char **the_dico (char *file, int size)
 {
     int words = 0, i, idx_dico = 0;
-    for (int i = 0; file[i] != '\0'; i++)
-        if (file[i] == '|')
+    for (int i = 0; i < size; i++)
+        if (file[i] == '|' && (file[i - 1] >= '0' && file[i - 1] <= '9'))
             words++;
     char **dico = malloc(sizeof(char *) * (words + 1));
     for (i = 0; file[i] != '|'; i++) {
@@ -193,10 +193,11 @@ void bits_char (char c, char *str, int *idx)
 char *unlisible_to_bits (char *file, int str_size)
 {
     int idx, size, idx_str_b = 0, i;
-    while (file[0] != '|' || file[1] != '|')
+    while (my_strcmp(file, "|||"))
         file++;
-    file += 2;
+    file += 3;
     char *size_bits = file;
+    // my_putstr(file);
     while (file[0] != '^')
         file++;
     file[0] = '\0';
@@ -277,7 +278,7 @@ void bits_to_texte (list_val *cara, char *str)
 
 int type_1 (char *file, int str_size)
 {
-    char **dico = the_dico(file);
+    char **dico = the_dico(file, str_size);
     list_val *caracters = dico_to_linked_list(dico);
     int size = my_list_size(caracters);
     node_binary *tree = creat_binaty_tree(caracters);

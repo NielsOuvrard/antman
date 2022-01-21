@@ -255,7 +255,8 @@ int type_1 (char *file, int marvin)
 {
     list_val *caracters = new_list(file);
     disp_char_occ(caracters);
-    my_putchar('|');
+    // my_putchar('|');
+    my_putstr("||");
     int size = my_list_size(caracters);
     reverst_linked_list(&caracters);
     node_binary *tree = creat_binaty_tree(caracters);
