@@ -11,9 +11,8 @@
 int bi_dec(char i)
 {
     int mask = 1, tot = 0;
-
     for (int x = 0; x < 8; x++) {
-        if (!!(i & mask) == 1)
+        if ((i & mask) != 0)
             tot = tot + mask;
 
         mask = mask * 2;
@@ -31,8 +30,8 @@ int type_3 (char *file)
         my_putchar(file[i]);
     i++;
     int size = e.st_size;
-    for (i; i < size; i++) {
-        my_putunsint(bi_dec(file[i]));
+    for (i; i < size-1; i++) {
+        my_putunsint( bi_dec(file[i]));
         my_putchar('\n');
     }
 
