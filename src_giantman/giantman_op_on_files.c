@@ -5,7 +5,6 @@
 ** operations on files
 */
 
-
 #include "my.h"
 #include "gm_header.h"
 

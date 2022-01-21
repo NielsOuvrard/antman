@@ -148,3 +148,13 @@ List *freeat(List *L, int pos);
 List *addat(List *L, int nbr, int total, int pos);
 
 void addend(int nbr, int total, List **enda, List **list);
+
+//antman t3.2
+
+int get_nbr2(char *yes, int i);
+
+void readbitsc(char a);
+
+void readbitsint(int a);
+
+void printbits(char *it, char *a);

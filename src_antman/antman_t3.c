@@ -8,75 +8,32 @@
 #include "my.h"
 #include "am_header.h"
 
-int get_nbr2(char *yes, int i)
+char nbrbi(int a)
 {
-    int res = 0, x = i, neg = 1;
-    if (yes[x] == '-' || yes[x] == '+') {
-        if (yes[x] == '-') 
-            neg = -1;
-        x++;
-    }
-    while (yes[x] <= 57 && yes[x] >= 48) {
-    res = res * 10;
-    res = res + (yes[x] - 48);
-    x++;
-    }
-    res = res * neg;
-    return res;
-}
-
-void readbitsc(char a) {
-    int mask = 1;
-
-    for(int x = 0; x < 8;x++) {
-        my_putunsint(!!(a & mask));
-        mask = mask * 2;
-    }
-}
-
-void readbitsint(int a) {
-    int mask = 1;
-    for(int x = 0; x < 8;x++) {
-        my_putunsint(!!(a & mask));
-        mask = mask * 2;
-    }
-}
-
-void printbits(char *it, char *a) {
-    int mask = 1;
-    for(int i = 0; i < 8; i++) {
-        if(it[i] == '1')
-            *a = (*a | mask);
-        else if (it[i] == '0' && (*a & mask) != 0)
-            *a = (*a ^ mask);
-        mask = mask * 2;
-    }
-}
-
-char nbrbi(int a) {
     int mask = 1;
     char e = 0x00000000;
-    for(int x = 0; x < 8;x++) {
-        if(!!(a & mask) == 1)
+    for (int x = 0; x < 8;x++) {
+        if (!!(a & mask) == 1)
             e = (e | mask);
         mask = mask * 2;
     }
     return e;
 }
 
-int bi_dec(char i) {
+int bi_dec(char i)
+{
     int mask = 1, tot = 0;
 
-    for(int x = 0; x < 8; x++) {
-        if(!!(i & mask) == 1)
+    for (int x = 0; x < 8; x++) {
+        if (!!(i & mask) == 1)
             tot = tot + mask;
-
         mask = mask * 2;
     }
     return tot;
 }
 
-int len_line(char *file, int i) {
+int len_line(char *file, int i)
+{
     int res = 0;
     while (file[i] != '\0' && file[i] != '\n') {
         i++;
@@ -85,13 +42,13 @@ int len_line(char *file, int i) {
     return res;
 }
 
-
-int find_start(char *file) {
+int find_start(char *file)
+{
     int res = len_line(file, 0), i = 0;
-    while(file[i] != '\n') 
+    while (file[i] != '\n')
         i++;
     i++;
-    while(len_line(file, i) > 4) { 
+    while (len_line(file, i) > 4) {
         i = i + len_line(file, i);
         i++;
     }
@@ -101,14 +58,14 @@ int find_start(char *file) {
 int type_3 (char *file)
 {
     int i = find_start(file), eee;
-        for (int x = 0; x < i; x++)
-            my_putchar(file[x]);
-        my_putchar('|');  
-        for(i; file[i] != '\0'; i++) {
-            eee = get_nbr2(file, i);
-            my_putchar(nbrbi(eee));
-            for(i; file[i] != '\n' && file[i] != '\0'; i++);   
-            eee = 0;
-        }
+    for (int x = 0; x < i; x++)
+        my_putchar(file[x]);
+    my_putchar('|');
+    for (i; file[i] != '\0'; i++) {
+        eee = get_nbr2(file, i);
+        my_putchar(nbrbi(eee));
+        for (i; file[i] != '\n' && file[i] != '\0'; i++);
+        eee = 0;
+    }
     return 0;
 }
