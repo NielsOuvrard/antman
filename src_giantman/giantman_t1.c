@@ -15,15 +15,19 @@ char **the_dico (char *file, int size)
         if (file[i] == '|' && (file[i - 1] >= '0' && file[i - 1] <= '9'))
             words++;
     char **dico = malloc(sizeof(char *) * (words + 1));
-    for (i = 0; file[i] != '|'; i++) {
+    for (i = 0; file[i] != '|' || file[i + 1] != '|'; i++) {
         int sz = 0, i_dico = 0;
-        for (sz = i; file[sz] != '|'; sz++);
-        dico[idx_dico] = malloc(sizeof(char) * (sz + 1));
-        my_memset(dico[idx_dico], sz + 1, '\0');
-        for (i; file[i] != '|'; i++) {
+        for (sz = i + 1; file[sz] != '|'; sz++);
+        dico[idx_dico] = malloc(sizeof(char) * (sz + 2));
+        my_memset(dico[idx_dico], sz + 2, '\0');
+        while (file[i + 1] != '|') {
             dico[idx_dico][i_dico] = file[i];
             i_dico++;
+            i++;
         }
+        dico[idx_dico][i_dico] = file[i];
+        i_dico++;
+        i++;
         idx_dico++;
     }
     dico[idx_dico] = NULL;
@@ -280,6 +284,7 @@ int type_1 (char *file, int str_size)
 {
     char **dico = the_dico(file, str_size);
     list_val *caracters = dico_to_linked_list(dico);
+    // my_show_word_array(dico);
     int size = my_list_size(caracters);
     node_binary *tree = creat_binaty_tree(caracters);
     int *bits = malloc(sizeof(int) * size);
