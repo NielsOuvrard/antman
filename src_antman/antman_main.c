@@ -20,6 +20,15 @@ int antman (char *file, int type)
     return 0;
 }
 
+int file_exist (char *filepath)
+{
+    int file = open(filepath, O_RDONLY);
+    if (file <= 0)
+        return 0;
+    close(file);
+    return 1;
+}
+
 int main (int ac, char **av)
 {
     if (ac != 3)
@@ -28,9 +37,11 @@ int main (int ac, char **av)
     && my_strcmp(av[2], "3"))
         return 84;
     int size = 0;
+    if (!file_exist(av[1]))
+        return 84;
     char *file = file_to_str(av[1], &size);
     if (file == NULL)
-        return 84;
+        return 0;
     antman(file, my_getnbr(av[2]));
     return 0;
 }
