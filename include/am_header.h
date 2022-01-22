@@ -42,6 +42,56 @@ typedef struct head_node_binary {
     struct head_node_binary *next;
 } head_node_binary;
 
+
+// giantman t1
+
+
+
+
+
+int find_and_disp_the_char (list_val *tree, char c, char *str, int *idx);
+
+int size_of_malloc (list_val *tree, char c);
+
+void printbits_two (char *str_bits);
+
+
+
+void free_binary_tree (node_binary *tree);
+
+void disp_char_occ (list_val *caracters);
+
+
+
+
+char **the_dico (char *file, int size);
+
+node_binary *concat_two_tree (node_binary *tree_1, node_binary *tree_2);
+
+head_node_binary *all_in_list_head (list_val *caracters);
+
+head_node_binary *sort_first_elem_head (head_node_binary *head);
+
+node_binary *creat_binaty_tree (list_val *caracters);
+
+void find_the_binary_int_tree (node_binary *tree, list_val **node);
+
+void compact_two_list (node_binary *tree, list_val *node);
+
+void makes_bits (node_binary* tree, int *bits, int top);
+
+void bits_char (char c, char *str, int *idx);
+
+char *unlisible_to_bits (char *file, int str_size);
+
+list_val *dico_to_linked_list (char **dico);
+
+void disp_array (int *arr);
+
+void disp_tree (node_binary *tree);
+
+void disp_the_nodes (list_val *list);
+
 // head
 
 void my_put_in_list_head (head_node_binary **head, node_binary *body);
