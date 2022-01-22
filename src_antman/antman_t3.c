@@ -42,25 +42,33 @@ int len_line(char *file, int i)
     return res;
 }
 
-int find_start(char *file)
+int test_nbr(char *file, int i)
 {
-    int res = len_line(file, 0), i = 0;
-    while (file[i] != '\n')
-        i++;
-    i++;
-    while (len_line(file, i) > 4) {
-        i = i + len_line(file, i);
+    while (file[i] != '\n') {
+        if (file[i] < 48 || file[i] > 57)
+            return 1;
         i++;
     }
+    return 0;
+}
+
+int find_start(char *file)
+{
+    int i = 0;
+    while (test_nbr(file, i) == 1) {
+        for (i; file[i] != '\n'; i++) {
+            my_putchar(file[i]);
+        }
+        my_putchar(file[i]);
+        i++;
+    }
+    my_putchar('|');
     return i;
 }
 
 int type_3 (char *file, int cbnjh)
 {
     int i = find_start(file), eee;
-    for (int x = 0; x < i; x++)
-        my_putchar(file[x]);
-    my_putchar('|');
     for (i; file[i] != '\0'; i++) {
         eee = get_nbr2(file, i);
         my_putchar(nbrbi(eee));
