@@ -16,7 +16,8 @@ char *file_to_str (char *file_name, int *size)
     int a, size_read, nmb_rows;
     struct stat *buf;
     buf = malloc(sizeof(struct stat));
-    stat(file_name, buf);
+    if(stat(file_name, buf) == -1)
+        return NULL;
     (*size) = buf->st_size;
     free(buf);
     char *buffer = malloc(sizeof(char) * ((*size) + 1));
