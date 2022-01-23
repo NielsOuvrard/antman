@@ -45,7 +45,6 @@ char *file_to_str (char *file_name, int *size, int *error)
     return buffer;
 }
 
-
 char **str_to_array (char *str)
 {
     int k = 0, size, i_map = 0;

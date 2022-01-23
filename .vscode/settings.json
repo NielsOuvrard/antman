@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "my.h": "c",
-        "am_header.h": "c"
+        "am_header.h": "c",
+        "stdlib.h": "c"
     }
 }

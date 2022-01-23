@@ -45,28 +45,6 @@ int size_of_malloc (list_val *tree, char c)
     return 0;
 }
 
-// void printbits_two (char *str_bits)
-// {
-//     int j = 0;
-//     while (1) {
-//         int mask = 1;
-//         char c = 0;
-//         for (int i = j; i < j + 8; i++) {
-//             if (str_bits[i] == '\0') {                  // C1
-//                 my_putchar(c);
-//                 return;
-//             }
-//             if (str_bits[i] == '1')
-//                 c = (c | mask);
-//             else if (str_bits[i] == '0' && (c & mask) != 0)
-//                 c = (c ^ mask);
-//             mask = mask * 2;
-//         }
-//         my_putchar(c);
-//         j += 8;
-//     }
-// }
-
 int printbits_two_next (char *str_bits, int *j)
 {
     int mask = 1;

@@ -15,9 +15,7 @@ char my_putchar(char c)
 void my_putstr(char *str)
 {
     int e = 0;
-
-    while (str[e] != '\0')
-    {
+    while (str[e] != '\0') {
         my_putchar(str[e]);
         e = e + 1;
     }
