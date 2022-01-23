@@ -36,12 +36,16 @@ int main (int ac, char **av)
     if (my_strcmp(av[2], "1") && my_strcmp(av[2], "2")
     && my_strcmp(av[2], "3"))
         return 84;
-    int size = 0;
+    int size = 0, error = 0;
     if (!file_exist(av[1]))
         return 84;
-    char *file = file_to_str(av[1], &size);
-    if (file == NULL)
+    char *file = file_to_str(av[1], &size, &error);
+    if (file == NULL) {
+        if (error == 84)
+            return 84;
+        my_putchar('\n');
         return 0;
+    }
     antman(file, my_getnbr(av[2]));
     return 0;
 }

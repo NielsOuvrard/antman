@@ -136,7 +136,7 @@ void reverst_linked_list (list_val **off);
 
 // op on files
 
-char *file_to_str (char *file_name, int *size);
+char *file_to_str (char *file_name, int *size, int *error);
 
 void my_putfile (char *file, int len);
 
