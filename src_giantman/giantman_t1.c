@@ -16,6 +16,32 @@ int comparaison_arr_and_str (int *arr, char *str)
     return 1;
 }
 
+node_binary *first_elem (char value, int occ, int type)
+{
+    node_binary *element;
+    element = malloc(sizeof(node_binary));
+    element->value = value;
+    element->type = type;
+    element->occ = occ;
+    element->right = NULL;
+    element->left = NULL;
+    return element;
+}
+
+list_val *in_new_list (list_val *caracters, char *file, int i)
+{
+    list_val *expl = caracters;
+    while (expl) {
+        if (file[i] == expl->value) {
+            expl->occ++;
+            return caracters;
+        }
+        expl = expl->next;
+    }
+    my_put_in_list(&caracters, file[i], 1);
+    return caracters;
+}
+
 void bits_to_texte (list_val *cara, char *str)
 {
     int j = 0;

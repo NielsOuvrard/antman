@@ -32,7 +32,6 @@ int free_linked_list_am (list_val *list)
 {
     while (list != NULL) {
         list_val *tmp = list;
-        // free(list->value);
         list = list->next;
         free(tmp);
     }
@@ -49,10 +48,7 @@ void disp_head_list (head_node_binary *head)
             my_putchar('|');
             my_putchar(head->node->left->value);
         }
-        if (head->node->value != '\n')
-            my_putchar(head->node->value);
-        else
-            my_putstr("\\n");
+        my_putchar(head->node->value);
         my_putstr("\tocc : ");
         my_putint(head->node->occ);
         my_putstr(" \tleft : ");

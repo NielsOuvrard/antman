@@ -68,11 +68,3 @@ void disp_the_nodes (list_val *list)
         list = list->next;
     }
 }
-
-// int comparaison_arr_and_str (int *arr, char *str)
-// {
-//     for (int i = 0; arr[0] > i; i++)
-//         if (str[i] != ITOC(arr[i + 1]))
-//             return 0;
-//     return 1;
-// }

@@ -42,12 +42,7 @@ typedef struct head_node_binary {
     struct head_node_binary *next;
 } head_node_binary;
 
-
 // giantman t1
-
-
-
-
 
 int find_and_disp_the_char (list_val *tree, char c, char *str, int *idx);
 
@@ -55,14 +50,9 @@ int size_of_malloc (list_val *tree, char c);
 
 void printbits_two (char *str_bits);
 
-
-
 void free_binary_tree (node_binary *tree);
 
 void disp_char_occ (list_val *caracters);
-
-
-
 
 char **the_dico (char *file, int size);
 

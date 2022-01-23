@@ -22,14 +22,20 @@ void disp_tree (node_binary *tree)
     }
 }
 
-int type_1 (char *file, int marvin)
+list_val *type_1_next (char *file, int *size)
 {
     list_val *caracters = new_list(file);
     disp_char_occ(caracters);
-    // my_putchar('|');
     my_putstr("||");
-    int size = my_list_size(caracters);
+    (*size) = my_list_size(caracters);
     reverst_linked_list(&caracters);
+    return caracters;
+}
+
+int type_1 (char *file, int marvin)
+{
+    int size;
+    list_val *caracters = type_1_next(file, &size);
     node_binary *tree = creat_binaty_tree(caracters);
     int *bits = malloc(sizeof(int) * size);
     makes_bits(tree, bits, 0);
@@ -42,15 +48,10 @@ int type_1 (char *file, int marvin)
     my_memset(str_bits, malloc_sz + 1, '\0');
     int nmb_bits = 0;
     for (int i = 0; file[i] != '\0'; i++)
-        nmb_bits += find_and_disp_the_char(caracters, file[i], str_bits, &index_str);
+        nmb_bits += find_and_disp_the_char(
+        caracters, file[i], str_bits, &index_str);
     my_putint(nmb_bits);
-    my_putstr("^");
+    my_putchar('^');
     printbits_two(str_bits);
-    // for (int i = 0; str_bits[i] != '\0'; i++) {
-    //     printbits_two(str_bits, i);
-    //     i += 7;
-    // }
-    // while (tree->right != NULL && tree->left != NULL)
-    //     free_binary_tree(tree);
     return 0;
 }

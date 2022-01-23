@@ -8,7 +8,13 @@
 #include "my.h"
 #include "am_header.h"
 
-// int my_put_in_tree (node_binary **tree, char value, int occ, int a);
+void compact_two_list (node_binary *tree, list_val *node)
+{
+    while (node != NULL) {
+        find_the_binary_int_tree(tree, &node);
+        node = node->next;
+    }
+}
 
 list_val *in_new_list (list_val *caracters, char *file, int i)
 {

@@ -37,7 +37,8 @@ head_node_binary *all_in_list_head (list_val *caracters)
 {
     head_node_binary *linked_list = NULL;
     while (caracters) {
-        my_put_in_list_head(&linked_list, first_elem(caracters->value, caracters->occ, 1));
+        my_put_in_list_head(&linked_list,
+        first_elem(caracters->value, caracters->occ, 1));
         caracters->binary = NULL;
         caracters = caracters->next;
     }
