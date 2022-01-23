@@ -24,10 +24,7 @@ int find_and_disp_the_char (list_val *tree, char c, char *str, int *idx)
 {
     while (tree) {
         if (tree->value == c) {
-            for (int i = 1; i <= tree->binary[0]; i++) {
-                str[(*idx)] = ITOC(tree->binary[i]);
-                (*idx)++;
-            }
+            str = find_and_disp_sub_part(tree, idx, str);
             return tree->binary[0];
         }
         tree = tree->next;

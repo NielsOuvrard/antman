@@ -82,6 +82,8 @@ void disp_tree (node_binary *tree);
 
 void disp_the_nodes (list_val *list);
 
+char *find_and_disp_sub_part(list_val *tree, int *idx, char *str);
+
 // head
 
 void my_put_in_list_head (head_node_binary **head, node_binary *body);
